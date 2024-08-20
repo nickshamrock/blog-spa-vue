@@ -1,14 +1,9 @@
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+import AppHeader from './components/AppHeader.vue'
+</script>
 
 <template>
-  <p class="test mt-[200px]">Запуск проекта</p>
-  <p></p>
+  <app-header></app-header>
 </template>
 
-<style lang="sass" scoped>
-
-.test
-  color: black
-  text-decoration: underline
-  font-size: 50px
-</style>
+<style lang="sass" scoped></style>
