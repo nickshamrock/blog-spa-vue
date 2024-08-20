@@ -20,7 +20,18 @@ const store = reactive({
       title: 'Моменты тишины и покоя',
       description: 'В такие моменты наши фотографы ощущают гармонию и умиротворение.',
       tags: ['Природа', 'Животные']
+    },
+
+    {
+      imageSrc: 'http://placehold.it/400x250',
+      date: '6 Апр',
+      readTime: '3 мин',
+      comments: 5,
+      title: 'Моменты тишины и покоя',
+      description: 'В такие моменты наши фотографы ощущают гармонию и умиротворение.',
+      tags: ['Люди']
     }
+
     // добавьте остальные посты здесь
   ] as Post[],
   selectedFilters: [] as string[],

@@ -1,39 +1,3 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const showFilters = ref<boolean>(false)
-const searchQuery = ref<string>('')
-const filters = ref<string[]>([
-  'Город +',
-  'Природа +',
-  'Люди +',
-  'Животные +',
-  'Еда +',
-  'Напитки +',
-  'Архитектура +',
-  'Искусство +'
-])
-const selectedFilters = ref<string[]>([])
-
-const toggleFilter = (): void => {
-  showFilters.value = !showFilters.value
-}
-
-const toggleFilterSelection = (filter: string): void => {
-  const index = selectedFilters.value.indexOf(filter)
-  if (index > -1) {
-    selectedFilters.value.splice(index, 1)
-  } else {
-    selectedFilters.value.push(filter)
-  }
-}
-
-const clearFilters = (): void => {
-  selectedFilters.value = []
-  searchQuery.value = ''
-}
-</script>
-
 <template>
   <div class="blog-filter">
     <div class="search-container">
@@ -55,13 +19,72 @@ const clearFilters = (): void => {
         v-for="filter in filters"
         :key="filter"
         @click="toggleFilterSelection(filter)"
-        :class="{ active: selectedFilters.includes(filter) }"
+        :class="{ active: isActiveFilter(filter) }"
       >
         {{ filter }}
       </button>
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { ref, watch } from 'vue'
+import store from '@/store'
+
+const showFilters = ref<boolean>(false)
+const searchQuery = ref<string>(store.searchQuery)
+const filters = ref<string[]>([
+  'Город +',
+  'Природа +',
+  'Люди +',
+  'Животные +',
+  'Еда +',
+  'Напитки +',
+  'Архитектура +',
+  'Искусство +'
+])
+const selectedFilters = ref<string[]>(store.selectedFilters)
+
+// Функция для проверки, является ли фильтр активным
+const isActiveFilter = (filter: string): boolean => {
+  return selectedFilters.value.includes(filter.replace(' +', ''))
+}
+
+// Функция для переключения фильтра
+const toggleFilterSelection = (filter: string): void => {
+  const cleanFilter = filter.replace(' +', '') // Удаление знака "+"
+  const index = selectedFilters.value.indexOf(cleanFilter)
+  if (index > -1) {
+    selectedFilters.value.splice(index, 1)
+  } else {
+    selectedFilters.value.push(cleanFilter)
+  }
+  store.selectedFilters = selectedFilters.value // Обновляем хранилище
+}
+
+// Функция для очистки фильтров и поиска
+const clearFilters = (): void => {
+  selectedFilters.value = []
+  store.selectedFilters = []
+  searchQuery.value = ''
+  store.searchQuery = ''
+}
+
+// Слежение за изменениями в searchQuery
+watch(searchQuery, (newValue) => {
+  store.searchQuery = newValue
+})
+
+// Слежение за изменениями в selectedFilters
+watch(selectedFilters, (newValue) => {
+  store.selectedFilters = newValue
+})
+
+// Функция для переключения видимости фильтров
+const toggleFilter = (): void => {
+  showFilters.value = !showFilters.value
+}
+</script>
 
 <style scoped lang="sass">
 .blog-filter
@@ -123,11 +146,13 @@ const clearFilters = (): void => {
       font-size: 14px
       color: #000
       cursor: pointer
+      transition: background-color 0.2s ease
 
       &:hover
         background-color: #e0f0ff
 
       &.active
-        background-color: #add8e6
-        border-color: #5f9ea0
+        background-color: #ffcccc   // Изменение цвета кнопки при активации
+        border-color: #ff0000      // Цвет границы при активации
+        color: #000
 </style>
