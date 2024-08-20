@@ -1,0 +1,133 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const showFilters = ref<boolean>(false)
+const searchQuery = ref<string>('')
+const filters = ref<string[]>([
+  'Город +',
+  'Природа +',
+  'Люди +',
+  'Животные +',
+  'Еда +',
+  'Напитки +',
+  'Архитектура +',
+  'Искусство +'
+])
+const selectedFilters = ref<string[]>([])
+
+const toggleFilter = (): void => {
+  showFilters.value = !showFilters.value
+}
+
+const toggleFilterSelection = (filter: string): void => {
+  const index = selectedFilters.value.indexOf(filter)
+  if (index > -1) {
+    selectedFilters.value.splice(index, 1)
+  } else {
+    selectedFilters.value.push(filter)
+  }
+}
+
+const clearFilters = (): void => {
+  selectedFilters.value = []
+  searchQuery.value = ''
+}
+</script>
+
+<template>
+  <div class="blog-filter">
+    <div class="search-container">
+      <h1>Блог</h1>
+      <input v-model="searchQuery" type="text" placeholder="Поиск" />
+      <div class="button-group">
+        <button v-if="selectedFilters.length > 0" @click="clearFilters" class="clear-button">
+          Очистить
+        </button>
+        <button @click="toggleFilter" class="filter-toggle">
+          {{ showFilters && selectedFilters.length === 0 ? 'Скрыть фильтры' : 'Фильтр' }}
+          <span :class="{ rotate: showFilters }" class="arrow">▼</span>
+        </button>
+      </div>
+    </div>
+
+    <div v-if="showFilters" class="filter-buttons">
+      <button
+        v-for="filter in filters"
+        :key="filter"
+        @click="toggleFilterSelection(filter)"
+        :class="{ active: selectedFilters.includes(filter) }"
+      >
+        {{ filter }}
+      </button>
+    </div>
+  </div>
+</template>
+
+<style scoped lang="sass">
+.blog-filter
+  .search-container
+    display: flex
+    align-items: center
+
+    h1
+      margin: 0
+      font-size: 24px
+      font-weight: bold
+
+    input
+      margin-left: 10px
+      padding: 5px
+      border: 1px solid #ddd
+      border-radius: 4px
+      font-size: 14px
+      width: 200px
+
+    .button-group
+      display: flex
+      align-items: center
+      margin-left: auto
+
+    .clear-button
+      background: none
+      border: none
+      color: #000
+      font-size: 14px
+      cursor: pointer
+      margin-right: 10px
+
+    .filter-toggle
+      display: flex
+      align-items: center
+      background: none
+      border: none
+      color: #000
+      font-size: 14px
+      cursor: pointer
+
+    .arrow
+      margin-left: 5px
+      transition: transform 0.2s ease
+
+    .rotate
+      transform: rotate(180deg)
+
+  .filter-buttons
+    margin-top: 10px
+
+    button
+      background-color: #f0f8ff
+      border: 1px solid #87cefa
+      border-radius: 20px
+      padding: 5px 10px
+      margin-right: 5px
+      font-size: 14px
+      color: #000
+      cursor: pointer
+
+      &:hover
+        background-color: #e0f0ff
+
+      &.active
+        background-color: #add8e6
+        border-color: #5f9ea0
+</style>
