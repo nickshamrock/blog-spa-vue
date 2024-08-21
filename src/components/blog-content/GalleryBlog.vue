@@ -3,10 +3,6 @@ import { computed } from 'vue'
 import BlogPost from './BlogPost.vue'
 import store from '@/store'
 
-function makeAlert(): void {
-  alert('На меня кликнули')
-}
-
 // Добавил сейчас: Функция для преобразования даты в формат, который можно использовать для сортировки
 function parseDate(dateString: string): Date {
   const [day, month] = dateString.split(' ')
@@ -81,7 +77,6 @@ const showNoResults = computed(() => filteredPosts.value.length === 0)
         :title="post.title"
         :description="post.description"
         :tags="post.tags"
-        @click="makeAlert"
       />
     </div>
   </div>
