@@ -15,7 +15,7 @@ defineProps<CardProps>()
 </script>
 <template>
   <div class="flex h-auto w-1/3 flex-col outline outline-1 outline-cyan-50">
-    <img class="h-48 w-full object-cover" :src="imageSrc" :alt="title" />
+    <img class="h-48 w-full object-cover" :src="imageSrc" width="400" height="250" :alt="title" />
 
     <div class="flex flex-col space-y-2 p-4">
       <div class="flex items-center space-x-2 text-sm text-gray-500">
@@ -26,11 +26,11 @@ defineProps<CardProps>()
         <span>{{ comments }} комментариев</span>
       </div>
 
-      <h3 class="text-lg font-semibold text-gray-900">
+      <h3 class="text-lg font-semibold text-white">
         {{ title }}
       </h3>
 
-      <p class="text-sm text-gray-700">
+      <p class="text-sm text-white">
         {{ description }}
       </p>
 

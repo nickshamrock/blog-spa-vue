@@ -152,7 +152,7 @@ const toggleFilter = (): void => {
         background-color: #e0f0ff
 
       &.active
-        background-color: #ffcccc   // Изменение цвета кнопки при активации
-        border-color: #ff0000      // Цвет границы при активации
-        color: #000
+        background-color: red   // Изменение цвета кнопки при активации
+        border-color: red      // Цвет границы при активации
+        color: red
 </style>

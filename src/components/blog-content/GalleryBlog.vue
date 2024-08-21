@@ -3,17 +3,45 @@ import { computed } from 'vue'
 import BlogPost from './BlogPost.vue'
 import store from '@/store'
 
+function makeAlert(): void {
+  alert('На меня кликнули')
+}
+
+// Добавил сейчас: Функция для преобразования даты в формат, который можно использовать для сортировки
+function parseDate(dateString: string): Date {
+  const [day, month] = dateString.split(' ')
+  const monthMap: { [key: string]: number } = {
+    Янв: 0,
+    Фев: 1,
+    Мар: 2,
+    Апр: 3,
+    Май: 4,
+    Июн: 5,
+    Июл: 6,
+    Авг: 7,
+    Сен: 8,
+    Окт: 9,
+    Ноя: 10,
+    Дек: 11
+  }
+  return new Date(new Date().getFullYear(), monthMap[month], parseInt(day, 10))
+}
+
 const chunkSize = 3
 
 // Вычисляем только те посты, которые соответствуют выбранным фильтрам и запросу поиска
 const filteredPosts = computed(() => {
-  return store.posts.filter((post) => {
-    const matchesFilters =
-      store.selectedFilters.length === 0 ||
-      post.tags.some((tag) => store.selectedFilters.includes(tag))
-    const matchesSearch = post.description.toLowerCase().includes(store.searchQuery.toLowerCase())
-    return matchesFilters && matchesSearch
-  })
+  return store.posts
+    .filter((post) => {
+      const matchesFilters =
+        store.selectedFilters.length === 0 ||
+        post.tags.some((tag) => store.selectedFilters.includes(tag))
+      const matchesSearch = post.description.toLowerCase().includes(store.searchQuery.toLowerCase())
+      return matchesFilters && matchesSearch
+    })
+    .slice(0, 6)
+    .sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime()) //эти функции ограничивают показ колчичества постов
+  //до 6 и при этом фильтруют по дате от нового к старому
 })
 
 // Разделение постов на чанки для отображения
@@ -53,6 +81,7 @@ const showNoResults = computed(() => filteredPosts.value.length === 0)
         :title="post.title"
         :description="post.description"
         :tags="post.tags"
+        @click="makeAlert"
       />
     </div>
   </div>
