@@ -77,6 +77,7 @@ const showNoResults = computed(() => filteredPosts.value.length === 0)
         :title="post.title"
         :description="post.description"
         :tags="post.tags"
+        :text="post.text"
       />
     </div>
   </div>

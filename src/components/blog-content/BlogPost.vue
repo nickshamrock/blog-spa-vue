@@ -5,10 +5,6 @@ import { ref } from 'vue'
 
 const showModal: any = ref(false)
 
-// function makeAlert(): void {
-//   alert('На меня кликнули')
-// }
-
 interface CardProps {
   imageSrc: string
   date: string
@@ -17,6 +13,7 @@ interface CardProps {
   title: string
   description: string
   tags: string[]
+  text: string
 }
 
 defineProps<CardProps>()
@@ -41,9 +38,9 @@ defineProps<CardProps>()
         <span>{{ comments }} комментариев</span>
       </div>
 
-      <h3 class="text-lg font-semibold text-white">
+      <h2 class="text-lg font-semibold text-white">
         {{ title }}
-      </h3>
+      </h2>
 
       <p class="text-sm text-white">
         {{ description }}
@@ -60,7 +57,18 @@ defineProps<CardProps>()
       </div>
     </div>
     <Teleport to="body">
-      <ModalWindow :show="showModal" @close="showModal = false" />
+      <ModalWindow
+        :show="showModal"
+        @close="showModal = false"
+        :title="title"
+        :text="text"
+        :imageSrc="imageSrc"
+        :date="date"
+        :readTime="readTime"
+        :comments="comments"
+        :description="description"
+        :tags="tags"
+      />
     </Teleport>
   </div>
 </template>

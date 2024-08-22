@@ -8,6 +8,7 @@ interface Post {
   title: string
   description: string
   tags: string[]
+  text: string
 }
 
 const store = reactive({
@@ -19,7 +20,8 @@ const store = reactive({
       comments: 1, //сделать динамическое обновление этого ключа
       title: 'Вдохновение в каждом шаге',
       description: 'Наши путешественники находят вдохновение в каждом шаге своего пути.',
-      tags: ['Природа', 'Люди']
+      tags: ['Природа', 'Люди'],
+      text: 'Lorem ipsum'
     },
 
     {
@@ -29,7 +31,8 @@ const store = reactive({
       comments: 5,
       title: 'Объятия, которые говорят больше слов',
       description: 'В такие моменты наши фотографы ощущают гармонию и умиротворение.',
-      tags: ['Природа', 'Животные']
+      tags: ['Природа', 'Животные'],
+      text: 'Lorem Ipsum Test Text'
     },
 
     {
@@ -39,7 +42,8 @@ const store = reactive({
       comments: 5,
       title: 'Моменты тишины и покоя',
       description: 'В такие моменты наши фотографы ощущают гармонию и умиротворение.',
-      tags: ['Природа', 'Искусство']
+      tags: ['Природа', 'Искусство'],
+      text: 'Lorem Ipsum Test Text'
     },
 
     {
@@ -49,7 +53,8 @@ const store = reactive({
       comments: 5,
       title: 'Моменты тишины и покоя',
       description: 'В такие моменты наши фотографы ощущают гармонию и умиротворение.',
-      tags: ['Природа', 'Животные']
+      tags: ['Природа', 'Животные'],
+      text: 'Lorem Ipsum Test Text'
     },
 
     {
@@ -59,7 +64,8 @@ const store = reactive({
       comments: 5,
       title: 'Моменты тишины и покоя',
       description: 'В такие моменты наши фотографы ощущают гармонию и умиротворение.',
-      tags: ['Природа', 'Животные']
+      tags: ['Природа', 'Животные'],
+      text: 'Lorem Ipsum Test Text'
     },
 
     {
@@ -69,7 +75,8 @@ const store = reactive({
       comments: 5,
       title: 'Моменты тишины и покоя',
       description: 'В такие моменты наши фотографы ощущают гармонию и умиротворение.',
-      tags: ['Природа', 'Животные']
+      tags: ['Природа', 'Животные'],
+      text: 'Lorem Ipsum Test Text'
     },
 
     {
@@ -79,7 +86,8 @@ const store = reactive({
       comments: 5,
       title: 'Моменты тишины и покоя',
       description: 'В такие моменты наши фотографы ощущают гармонию и умиротворение.',
-      tags: ['Природа', 'Животные']
+      tags: ['Природа', 'Животные'],
+      text: 'Lorem Ipsum Test Text'
     },
 
     {
@@ -89,7 +97,8 @@ const store = reactive({
       comments: 5,
       title: 'Моменты тишины и покоя',
       description: 'В такие моменты наши фотографы ощущают гармонию и умиротворение.',
-      tags: ['Природа', 'Животные']
+      tags: ['Природа', 'Животные'],
+      text: 'Lorem Ipsum Test Text'
     },
 
     {
@@ -99,7 +108,8 @@ const store = reactive({
       comments: 5,
       title: 'Моменты тишины и покоя',
       description: 'В такие моменты наши фотографы ощущают гармонию и умиротворение.',
-      tags: ['Природа', 'Животные']
+      tags: ['Природа', 'Животные'],
+      text: 'Lorem Ipsum Test Text'
     }
 
     // добавьте остальные посты здесь
