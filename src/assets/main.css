@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* * {
+  outline: 2px solid green;
+} */
+
 body {
   background-color: white;
   font-family: 'Inter', 'Arial', sans-serif;

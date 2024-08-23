@@ -203,6 +203,8 @@ const sortedComments = computed(() => {
 </template>
 
 <style lang="sass" scoped>
+
+  //Анимация модального окна
 .modal-enter-from
   opacity: 0
 
@@ -212,7 +214,6 @@ const sortedComments = computed(() => {
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container
   transform: scale(1.1)
-
 
 .close-button
   background: none
@@ -232,28 +233,21 @@ const sortedComments = computed(() => {
   cursor: pointer
   color: #000
 
-  .textarea-normal
+.textarea-normal
   border: 1px solid rgba(62, 151, 255, 1) // Синяя рамка
   outline: 2px solid rgba(62, 151, 255, 0.32) // Синяя обводка
   height: 113px
-
 
 .textarea-error
   border: 1px solid rgba(241, 65, 108, 1) // Красная рамка
   outline: 2px solid rgba(241, 65, 108, 0.32)
   height: 113px // Красная обводка
 
-
 .textarea-focus
   height: 113px
   border: 1px solid rgba(62, 151, 255, 1) // Синяя рамка
   outline: 2px solid rgba(62, 151, 255, 0.32) // Синяя обводка
 
-
-
 .textarea-blur
   height: 52px
 </style>
-
-.comment-input border-color: #d1d5db outline: none &.outline-red-500 outline: 2px solid #f87171
-&.outline-blue-500 outline: 2px solid #3b82f6
