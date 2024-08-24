@@ -19,43 +19,41 @@ interface CardProps {
 defineProps<CardProps>()
 </script>
 <template>
-  <div class="flex h-auto w-1/3 flex-col outline outline-1 outline-cyan-50">
-    <img
-      class="h-48 w-full object-cover"
-      :src="imageSrc"
-      width="400"
-      height="250"
-      :alt="title"
-      @click="showModal = true"
-    />
+  <div class="flex h-auto w-[400px] flex-col gap-[10px]" @click="showModal = true">
+    <img class="h-[250px] w-[450px] rounded-xl object-cover" :src="imageSrc" :alt="title" />
 
-    <div class="flex flex-col space-y-2 p-4">
-      <div class="flex items-center space-x-2 text-sm text-gray-500">
-        <span>{{ date }}</span>
-        <span>•</span>
+    <div class="flex flex-wrap items-center text-sm leading-[14px] text-[#7E8299]">
+      <span>{{ date }}</span>
+      <span class="mx-[10px] block text-[10px] font-semibold leading-[10px]">•</span>
+      <div class="flex items-center">
+        <img src="/svg/time.svg" class="mr-[7px] block" height="14px" width="14px" />
         <span>{{ readTime }}</span>
-        <span>•</span>
+      </div>
+      <span class="mx-[10px] block text-[10px] font-semibold leading-[10px]">•</span>
+      <div class="flex items-center">
+        <img src="/svg/messages.svg" class="mr-[5px] block" height="14px" width="14px" />
         <span>{{ comments }} комментариев</span>
       </div>
-
-      <h2 class="text-lg font-semibold text-white">
-        {{ title }}
-      </h2>
-
-      <p class="text-sm text-white">
-        {{ description }}
-      </p>
-
-      <div class="flex space-x-2 pt-2">
-        <span
-          v-for="tag in tags"
-          :key="tag"
-          class="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-500"
-        >
-          {{ tag }}
-        </span>
-      </div>
     </div>
+
+    <h2 class="text-[22px] font-semibold leading-[22px] tracking-tight text-black">
+      {{ title }}
+    </h2>
+
+    <p class="text-base font-medium leading-[25px] text-black">
+      {{ description }}
+    </p>
+
+    <div class="flex flex-wrap gap-[10px]">
+      <span
+        v-for="tag in tags"
+        :key="tag"
+        class="rounded-full bg-[#EEF6FF] px-[14px] py-[6px] text-sm font-medium leading-[14px] text-[#2884EF]"
+      >
+        {{ tag }}
+      </span>
+    </div>
+
     <Teleport to="body">
       <ModalWindow
         :show="showModal"
@@ -72,3 +70,5 @@ defineProps<CardProps>()
     </Teleport>
   </div>
 </template>
+
+<style lang="sass" scoped></style>

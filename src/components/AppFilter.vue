@@ -112,8 +112,6 @@ const removeOutline = () => {
 }
 </script>
 
-<!-- max-[800px]:px-[30px] max-[425px]:px-[10px] max-[425px]:py-[12px] -->
-
 <template>
   <div class="app-filter-container w-full bg-white">
     <div class="app-filter-wrapper px-[95px] py-5">

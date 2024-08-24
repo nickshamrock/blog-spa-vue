@@ -7,9 +7,7 @@ import GalleryBlog from './components/blog-content/GalleryBlog.vue'
 <template>
   <app-header></app-header>
   <app-filter></app-filter>
-  <section class="bg-slate-500 px-[50px] pb-[30px] pt-5">
-    <gallery-blog></gallery-blog>
-  </section>
+  <gallery-blog></gallery-blog>
 </template>
 
 <style lang="sass" scoped></style>

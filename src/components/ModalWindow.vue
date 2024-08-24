@@ -151,6 +151,7 @@ const sortedComments = computed(() => {
               @focus="onTextareaFocus"
               @blur="onTextareaBlur"
               @input="onTextareaInput"
+              name="comment-textarea"
             ></textarea>
             <button v-if="commentText.length > 0" @click="clearComment" class="clear-button">
               &#10005;
