@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
 import BlogPost from './BlogPost.vue'
+import SearchFail from './SearchFail.vue'
 import store from '@/store'
 
 // Функция для преобразования даты в формат, пригодный для сортировки
@@ -75,8 +76,8 @@ onMounted(() => {
   <section
     class="bg-[#F1F1F2] px-[50px] pb-[30px] pt-5 max-[800px]:px-[10px] max-[800px]:pt-[10px]"
   >
-    <div v-if="showNoResults" class="flex h-full w-full items-center justify-center">
-      <p class="text-7xl text-white">Увы, ничего не нашлось! Сочувствуем вам</p>
+    <div v-if="showNoResults">
+      <SearchFail />
     </div>
     <!-- Иначе показываем посты -->
     <div
@@ -86,7 +87,7 @@ onMounted(() => {
       <div
         v-for="(chunk, index) in chunkedPosts"
         :key="index"
-        class="mb-10 flex h-auto w-full gap-5 max-[800px]:mb-[25px]"
+        class="mb-10 flex h-auto w-full gap-5 max-[800px]:mb-[25px] min-[1450px]:justify-between"
       >
         <BlogPost
           v-for="post in chunk"

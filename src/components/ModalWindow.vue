@@ -28,7 +28,6 @@ const addedComments = ref([
 const maxCommentLength = 250
 
 const addComment = () => {
-  if (commentText.value.length > maxCommentLength) return // Не добавлять комментарий, если превышен лимит
   const date = new Date()
   const formattedDate = `${date.toLocaleDateString()} в ${date.toLocaleTimeString().slice(0, 5)}`
   addedComments.value.push({
@@ -37,22 +36,27 @@ const addComment = () => {
     date: formattedDate
   })
   commentText.value = ''
+  showCommentCounter.value = false
 }
 
 // Функция для очистки комментария
-const clearComment = () => {
+const clearComment = (event: Event) => {
   commentText.value = ''
-}
+  showCommentCounter.value = false
 
-// Состояние фокуса textarea
+  const textarea = event.target as HTMLTextAreaElement
+  textarea.classList.remove('textarea-normal')
+  textarea.classList.remove('textarea-focus')
+  textarea.classList.remove('textarea-error')
+}
 
 // Расширяем и добавляем стили textarea при клике
 const onTextareaFocus = (event: Event) => {
-  const textarea = event.target as HTMLTextAreaElement
+  showCommentCounter.value = true
 
+  const textarea = event.target as HTMLTextAreaElement
   // Всегда добавляем класс фокуса
   textarea.classList.add('textarea-focus')
-
   // Убираем класс ошибки, если длина комментария меньше 250
   if (commentText.value.length <= maxCommentLength) {
     textarea.classList.remove('textarea-error')
@@ -65,10 +69,8 @@ const onTextareaFocus = (event: Event) => {
 
 const onTextareaBlur = (event: Event) => {
   const textarea = event.target as HTMLTextAreaElement
-
   // Убираем класс фокуса
   textarea.classList.remove('textarea-focus')
-
   // Убираем класс ошибки и нормальный класс
   textarea.classList.remove('textarea-error', 'textarea-normal')
 }
@@ -101,101 +103,157 @@ const sortedComments = computed(() => {
     return parseDate(b.date).getTime() - parseDate(a.date).getTime() // Отсортировать в порядке убывания
   })
 })
+
+//Условие показа для счетчика символов
+const showCommentCounter = ref<boolean>(false)
 </script>
 
 <template>
   <Transition name="modal">
     <div
       v-show="show"
-      class="fixed left-0 top-0 z-50 flex h-full w-full overflow-y-auto bg-black/55 transition-opacity duration-500 ease-out"
+      class="fixed left-0 top-0 z-50 flex h-full w-full overflow-hidden overflow-y-auto bg-black/55 transition-opacity duration-500 ease-out"
     >
       <div
-        class="modal-container m-auto w-3/4 rounded-xl bg-white p-5 transition-all duration-500 ease-in"
+        class="modal-container m-auto h-auto w-[630px] rounded-xl bg-white p-[15px] transition-all duration-500 ease-in max-[800px]:w-2/3 max-[430px]:w-[350px]"
       >
-        <div class="mb-4 flex items-center justify-between">
-          <h3 class="text-black">{{ title }}</h3>
-          <button @click="$emit('close')" class="close-button">
-            &#10005;
-            <!-- Крестик для закрытия -->
-          </button>
+        <div class="mb-[10px] flex items-center justify-between">
+          <h3
+            class="text-2xl font-semibold leading-6 tracking-tighter text-black max-[430px]:text-xl"
+          >
+            {{ title }}
+          </h3>
+          <button @click="$emit('close')" class="h-[20px] w-[20px]">&#10005;</button>
         </div>
 
-        <div class="flex text-cyan-900">
+        <div
+          class="mb-[15px] flex flex-wrap items-center text-sm leading-[14px] text-[#7E8299] max-[430px]:text-xs"
+        >
           <span>{{ date }}</span>
-          <span>{{ readTime }}</span>
-          <span>{{ addedComments.length }} комментариев</span>
+          <span class="mx-[10px] block text-[10px] font-semibold leading-[10px]">•</span>
+          <div class="flex items-center">
+            <img src="/svg/time.svg" class="mr-[7px] block" height="14px" width="14px" />
+            <span>{{ readTime }}</span>
+          </div>
+          <span class="mx-[10px] block text-[10px] font-semibold leading-[10px]">•</span>
+          <div class="flex items-center">
+            <img src="/svg/messages.svg" class="mr-[5px] block" height="14px" width="14px" />
+            <span>{{ addedComments.length }} комментариев</span>
+          </div>
         </div>
-        <img :src="imageSrc" :alt="title" />
-        <p class="text-black">{{ text }}</p>
-        <div class="flex space-x-2 pt-2">
+
+        <img
+          :src="imageSrc"
+          width="600"
+          height="373"
+          class="mb-[15px] block rounded-xl object-cover max-[430px]:h-[200px] max-[430px]:w-[320px]"
+          :alt="title"
+        />
+        <p
+          class="mb-[10px] text-base font-medium leading-[25px] text-black max-[430px]:text-sm max-[430px]:leading-5"
+        >
+          {{ text }}
+        </p>
+
+        <div class="mb-[15px] flex flex-wrap gap-[10px]">
           <span
             v-for="tag in tags"
             :key="tag"
-            class="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-500"
+            class="rounded-full bg-[#EEF6FF] px-[14px] py-[6px] text-sm font-medium leading-[14px] text-[#2884EF]"
           >
             {{ tag }}
           </span>
         </div>
-
         <!-- Секция комментариев -->
-        <div class="comments-section mt-4">
-          <h4 class="text-lg font-semibold text-black">Комментариев {{ addedComments.length }}</h4>
-
+        <div class="flex flex-col gap-[10px]">
+          <div class="flex items-center gap-[6px] text-base leading-4">
+            <h4 class="font-semibold tracking-tighter text-[#181C32]">Комментариев</h4>
+            <span class="font-medium tracking-tighter text-[#7E8299]">{{
+              addedComments.length
+            }}</span>
+          </div>
           <!-- Поле для ввода нового комментария -->
           <div class="relative">
             <textarea
               v-model="commentText"
-              class="h-[52px] w-full resize-none rounded-lg border-[1px] border-solid border-[rgba(241,241,242,1)] p-3"
+              class="relative h-[52px] w-full resize-none rounded-lg border-[1px] border-solid border-[rgba(241,241,242,1)] py-[10px] pl-[15px] pr-[30px]"
               placeholder="Введите комментарий"
               maxlength="550"
               @focus="onTextareaFocus"
-              @blur="onTextareaBlur"
               @input="onTextareaInput"
+              @blur="onTextareaBlur"
               name="comment-textarea"
             ></textarea>
-            <button v-if="commentText.length > 0" @click="clearComment" class="clear-button">
+            <button
+              v-if="commentText.length > 0"
+              @click="clearComment"
+              class="absolute right-[20px] top-[10px]"
+            >
               &#10005;
             </button>
-            <!-- скорректировать позиционирование кнопке -->
+            <!-- Счетчик количества символов -->
+            <div
+              v-show="showCommentCounter"
+              class="flex text-left text-xs font-medium leading-3 text-[#7E8299]"
+            >
+              <p>
+                <span
+                  class="mr-auto"
+                  :class="{ 'text-[#f1416c]': commentText.length > maxCommentLength }"
+                  >{{ commentText.length }}
+                </span>
+                из 250 символов
+              </p>
+            </div>
+            <!-- Кнопки управления -->
+            <div class="flex justify-end gap-[10px]" v-show="showCommentCounter">
+              <button
+                @click="clearComment"
+                class="rounded-md bg-[#EEF6FF] px-[34px] py-3 text-[13px] font-bold leading-[14px] text-[#3E97FF]"
+              >
+                Отмена
+              </button>
+              <button
+                @click="addComment"
+                :disabled="commentText.length > maxCommentLength || commentText.length === 0"
+                :class="[
+                  'rounded-md px-[13px] py-3 text-[13px] font-semibold leading-[14px] text-white',
+                  {
+                    'bg-gray-300':
+                      commentText.length > maxCommentLength || commentText.length === 0,
+                    'bg-[#3E97FF]':
+                      commentText.length <= maxCommentLength && commentText.length >= 1
+                  }
+                ]"
+              >
+                Опубликовать
+              </button>
+            </div>
           </div>
-
-          <!-- Список комментариев -->
+          <!-- Список опубликованных комментариев -->
           <div
             v-for="(addedComment, index) in sortedComments"
             :key="index"
-            class="comment mb-4 rounded-lg bg-gray-100 p-4"
+            class="mb-[1px] flex items-start justify-start"
           >
-            <p class="font-bold text-gray-700">{{ addedComment.author }}</p>
-            <p class="text-gray-700">{{ addedComment.text }}</p>
-            <span class="text-sm text-gray-500">{{ addedComment.date }}</span>
-          </div>
-
-          <!-- Счётчик количества символов -->
-          <div
-            :class="[
-              'mt-2 text-right text-sm',
-              { 'text-red-500': commentText.length > maxCommentLength }
-            ]"
-          >
-            {{ commentText.length }} из 250 символов
-          </div>
-
-          <!-- Кнопки управления -->
-          <div class="mt-2 flex justify-end space-x-4">
-            <button @click="clearComment" class="rounded-lg bg-gray-300 px-4 py-2">Отмена</button>
-            <button
-              @click="addComment"
-              :disabled="commentText.length > maxCommentLength"
-              :class="[
-                'rounded-lg px-4 py-2 text-white',
-                {
-                  'bg-gray-300': commentText.length > maxCommentLength,
-                  'bg-blue-500': commentText.length <= maxCommentLength
-                }
-              ]"
-            >
-              Опубликовать
-            </button>
+            <img
+              src="/test/test-comment-author.png"
+              class="mr-3 block"
+              width="38"
+              height="38"
+              alt="comment-author"
+            />
+            <div class="flex flex-col gap-[6px]">
+              <p class="text-base font-semibold leading-4 tracking-tight text-[#181C32]">
+                {{ addedComment.author }}
+              </p>
+              <p class="text-sm font-medium leading-[14px] text-[#3F4254] max-[430px]:leading-5">
+                {{ addedComment.text }}
+              </p>
+              <span class="text-xs font-medium leading-3 text-[#A1A5B7]">{{
+                addedComment.date
+              }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -216,33 +274,16 @@ const sortedComments = computed(() => {
 .modal-leave-to .modal-container
   transform: scale(1.1)
 
-.close-button
-  background: none
-  border: none
-  font-size: 1.5rem
-  cursor: pointer
-  color: #000
-
-.clear-button
-  position: absolute
-  top: 50%
-  right: 10px
-  transform: translateY(-50%)
-  background: none
-  border: none
-  font-size: 1.2rem
-  cursor: pointer
-  color: #000
-
+  //Стили для рамки textarea, которые используются в функциях onTextarea*
 .textarea-normal
   border: 1px solid rgba(62, 151, 255, 1) // Синяя рамка
   outline: 2px solid rgba(62, 151, 255, 0.32) // Синяя обводка
-  height: 113px
+  height: auto
 
 .textarea-error
   border: 1px solid rgba(241, 65, 108, 1) // Красная рамка
-  outline: 2px solid rgba(241, 65, 108, 0.32)
-  height: 113px // Красная обводка
+  outline: 2px solid rgba(241, 65, 108, 0.32) // Красная обводка
+  height: 113px
 
 .textarea-focus
   height: 113px
@@ -250,5 +291,5 @@ const sortedComments = computed(() => {
   outline: 2px solid rgba(62, 151, 255, 0.32) // Синяя обводка
 
 .textarea-blur
-  height: 52px
+  height: auto
 </style>

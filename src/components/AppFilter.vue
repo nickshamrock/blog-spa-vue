@@ -98,13 +98,14 @@ const resetAllIcons = (): void => {
 
 const inputField = ref<HTMLInputElement | null>(null)
 
+//Функция добавления рамки на поле input при наведении
 const addOutline = () => {
   if (inputField.value) {
     inputField.value.style.border = '1px solid #3E97FF'
   }
 }
 
-// Функция для удаления рамки
+// Функция для удаления рамки на поле input
 const removeOutline = () => {
   if (inputField.value) {
     inputField.value.style.border = 'none'
