@@ -26,7 +26,7 @@ const addedComments = ref([
 ])
 
 const maxCommentLength = 250
-
+//Функкция добавления комментария
 const addComment = () => {
   const date = new Date()
   const formattedDate = `${date.toLocaleDateString()} в ${date.toLocaleTimeString().slice(0, 5)}`
@@ -38,7 +38,6 @@ const addComment = () => {
   commentText.value = ''
   showCommentCounter.value = false
 }
-
 // Функция для очистки комментария
 const clearComment = (event: Event) => {
   commentText.value = ''
@@ -50,7 +49,7 @@ const clearComment = (event: Event) => {
   textarea.classList.remove('textarea-error')
 }
 
-// Расширяем и добавляем стили textarea при клике
+// Расширяем и добавляем стили textarea при фокусе
 const onTextareaFocus = (event: Event) => {
   showCommentCounter.value = true
 
@@ -67,6 +66,7 @@ const onTextareaFocus = (event: Event) => {
   }
 }
 
+//Убираем стили, если фокус потерян
 const onTextareaBlur = (event: Event) => {
   const textarea = event.target as HTMLTextAreaElement
   // Убираем класс фокуса
@@ -75,7 +75,7 @@ const onTextareaBlur = (event: Event) => {
   textarea.classList.remove('textarea-error', 'textarea-normal')
 }
 
-// Обработка ввода текста для динамического обновления классов
+// Добавляем стили для textare в зависимости от количества введеного текста
 const onTextareaInput = (event: Event) => {
   const textarea = event.target as HTMLTextAreaElement
 
@@ -104,7 +104,7 @@ const sortedComments = computed(() => {
   })
 })
 
-//Условие показа для счетчика символов
+//Условие показа для счетчика символов и кнопок удаления/добавления комментария
 const showCommentCounter = ref<boolean>(false)
 </script>
 
@@ -262,7 +262,6 @@ const showCommentCounter = ref<boolean>(false)
 </template>
 
 <style lang="sass" scoped>
-
   //Анимация модального окна
 .modal-enter-from
   opacity: 0
@@ -273,22 +272,21 @@ const showCommentCounter = ref<boolean>(false)
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container
   transform: scale(1.1)
-
   //Стили для рамки textarea, которые используются в функциях onTextarea*
 .textarea-normal
-  border: 1px solid rgba(62, 151, 255, 1) // Синяя рамка
-  outline: 2px solid rgba(62, 151, 255, 0.32) // Синяя обводка
+  border: 1px solid rgba(62, 151, 255, 1)
+  outline: 2px solid rgba(62, 151, 255, 0.32)
   height: auto
 
 .textarea-error
-  border: 1px solid rgba(241, 65, 108, 1) // Красная рамка
-  outline: 2px solid rgba(241, 65, 108, 0.32) // Красная обводка
+  border: 1px solid rgba(241, 65, 108, 1)
+  outline: 2px solid rgba(241, 65, 108, 0.32)
   height: 113px
 
 .textarea-focus
   height: 113px
-  border: 1px solid rgba(62, 151, 255, 1) // Синяя рамка
-  outline: 2px solid rgba(62, 151, 255, 0.32) // Синяя обводка
+  border: 1px solid rgba(62, 151, 255, 1)
+  outline: 2px solid rgba(62, 151, 255, 0.32)
 
 .textarea-blur
   height: auto

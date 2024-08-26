@@ -1,10 +1,8 @@
-<script lang="ts" setup></script>
-
 <template>
   <div class="h-full w-full bg-white">
     <div class="m-auto flex w-full max-w-80 flex-col items-center p-5">
       <img
-        src="/public/svg/search-list.svg"
+        src="/svg/search-list.svg"
         class="mb-2 block"
         width="46"
         height="46"

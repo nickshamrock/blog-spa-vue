@@ -25,15 +25,18 @@ function parseDate(dateString: string): Date {
 }
 
 const chunkSize = ref(3) //Количество постов в строке
-
-// Вычисляем только те посты, которые соответствуют выбранным фильтрам и запросу поиска
+// Вычисляем только те посты, которые соответствуют выбранным фильтрам и запросу поиска по ключам description, text, title в файле store.ts
+// Фильтрация по постам связана с AppFilter через searchQuery
 const filteredPosts = computed(() => {
   return store.posts
     .filter((post) => {
       const matchesFilters =
         store.selectedFilters.length === 0 ||
         post.tags.some((tag) => store.selectedFilters.includes(tag))
-      const matchesSearch = post.description.toLowerCase().includes(store.searchQuery.toLowerCase())
+      const matchesSearch =
+        post.description.toLowerCase().includes(store.searchQuery.toLowerCase()) ||
+        post.description.toLowerCase().includes(store.searchQuery) ||
+        post.text.toLowerCase().includes(store.searchQuery)
       return matchesFilters && matchesSearch
     })
     .slice(0, 6)
@@ -61,8 +64,12 @@ onMounted(() => {
       chunkSize.value = 1 // Один пост в строке на узких экранах
     } else if (window.innerWidth <= 800) {
       chunkSize.value = 2 // Два поста в строке на средних экранах
-    } else {
+    } else if (window.innerWidth <= 1600) {
       chunkSize.value = 3 // Три поста в строке на широких экранах
+    } else if (window.innerWidth <= 1800) {
+      chunkSize.value = 4
+    } else if (window.innerWidth <= 2200) {
+      chunkSize.value = 5
     }
   }
 
@@ -72,10 +79,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <!--Если нет совпадений, показываем текст-заглушку -->
   <section
     class="bg-[#F1F1F2] px-[50px] pb-[30px] pt-5 max-[800px]:px-[10px] max-[800px]:pt-[10px]"
   >
+    <!--Если нет совпадений, показываем заглушку -->
     <div v-if="showNoResults">
       <SearchFail />
     </div>
@@ -87,7 +94,8 @@ onMounted(() => {
       <div
         v-for="(chunk, index) in chunkedPosts"
         :key="index"
-        class="mb-10 flex h-auto w-full gap-5 max-[800px]:mb-[25px] min-[1450px]:justify-between"
+        class="mb-10 flex h-auto w-full gap-5 max-[800px]:mb-[25px]"
+        v-auto-animate
       >
         <BlogPost
           v-for="post in chunk"

@@ -9,5 +9,3 @@ import GalleryBlog from './components/blog-content/GalleryBlog.vue'
   <app-filter></app-filter>
   <gallery-blog></gallery-blog>
 </template>
-
-<style lang="sass" scoped></style>

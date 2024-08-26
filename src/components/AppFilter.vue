@@ -115,7 +115,7 @@ const removeOutline = () => {
 
 <template>
   <div class="app-filter-container w-full bg-white">
-    <div class="app-filter-wrapper px-[95px] py-5">
+    <div class="app-filter-wrapper px-[95px] py-5" v-auto-animate>
       <div class="app-filter-header flex items-center gap-10">
         <h1 class="app-filter-title text-[32px] font-bold leading-8 text-[#181C32]">Блог</h1>
         <div class="app-filter-input-container relative flex items-center">
@@ -127,7 +127,7 @@ const removeOutline = () => {
           />
           <input
             v-model="searchQuery"
-            class="app-filter-input input-filter h-[40px] w-full rounded-md bg-[#F9F9F9] px-[34px] py-[13px]"
+            class="input-filter h-[40px] w-full rounded-md bg-[#F9F9F9] px-[34px] py-[13px]"
             type="text"
             placeholder="Поиск"
             name="input"
@@ -182,6 +182,15 @@ const removeOutline = () => {
 </template>
 
 <style scoped lang="sass">
+
+@font-face
+  font-family: 'Gilroy'
+  font-style: normal
+  font-weight: 700
+  src:
+    local:('Gilroy'),
+    url:('/fonts/Gilroy-Bold.woff2') format('woff2')
+
 
 .input-filter
   &:focus

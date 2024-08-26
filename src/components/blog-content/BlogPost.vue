@@ -3,6 +3,7 @@ import ModalWindow from '../ModalWindow.vue'
 import { defineProps } from 'vue'
 import { ref } from 'vue'
 
+//показ модального окна
 const showModal: any = ref(false)
 
 interface CardProps {
@@ -19,7 +20,7 @@ interface CardProps {
 defineProps<CardProps>()
 </script>
 <template>
-  <div class="flex h-auto w-[400px] flex-col gap-[10px]" @click="showModal = true">
+  <div class="flex h-auto w-[400px] cursor-pointer flex-col gap-[10px]" @click="showModal = true">
     <img class="h-[250px] w-[450px] rounded-xl object-cover" :src="imageSrc" :alt="title" />
 
     <div class="flex flex-wrap items-center text-sm leading-[14px] text-[#7E8299]">
@@ -70,5 +71,3 @@ defineProps<CardProps>()
     </Teleport>
   </div>
 </template>
-
-<style lang="sass" scoped></style>
