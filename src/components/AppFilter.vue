@@ -183,13 +183,13 @@ const removeOutline = () => {
 
 <style scoped lang="sass">
 
-@font-face
-  font-family: 'Gilroy'
-  font-style: normal
-  font-weight: 700
-  src:
-    local:('Gilroy'),
-    url:('/fonts/Gilroy-Bold.woff2') format('woff2')
+// @font-face
+//   font-family: 'Gilroy'
+//   font-style: normal
+//   font-weight: 700
+//   src:
+//     local:('Gilroy'),
+//     url:('/fonts/Gilroy-Bold.woff2') format('woff2')
 
 
 .input-filter

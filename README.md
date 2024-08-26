@@ -1,45 +1,40 @@
-# blog-spa-vue
+# Описание и логика проекта
 
-This template should help get you started developing with Vue 3 in Vite.
+Logoipsum – это корпоративный блог, в котором публикуются фотографии вымышленного сервиса. В этом блоге можно комментировать посты и сортировать их по конкретным фильтрам (“Природа”, “Люди” и так далее). Также на этом проекте реализован поиск постов по заголовку, описанию и тексту поста в модальном окне. Важно отметить, что при клике на пост открывается модальное окно, где открывается секция с комментариями и описанием фотографии.
 
-## Recommended IDE Setup
+# Используемые технологии
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Блог Logoipsum написан на Vue 3 (Composition API) с поддержкой TypeScript. Помимо этого, в проекте используются и другие библиотеки/плагины. Проект собран на Vite с помощью create vue@latest
 
-## Type Support for `.vue` Imports in TS
+Стек технологий/плагинов/технологий:
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- для кода: TypeScript с поддержкой vue-tsc(2.0.21). Документация Vue рекомендует использовать эту утилиту-обертку для проверки типов в командной строке, генерации объявлений типов и другого;
+- для стилей CSS: Tailwind (в большинстве случаев) и препроцессор SASS для отдельных случаев;
+  для анимации используется библиотека AutoAnimate помимо дефолтной анимации из “коробки” Vue 3 (Transition);
+- фреймворк Vue 3 (3.4.29);
+- сборщик Vite (5.3.1);
+- форматирование и проверка кода eslint(8.57.0), eslint-plugin-vue (9.23.0) и prettier(3.3.3);
+- помимо этого для упорядочивания инлайновых-стилей Tailwind используется плагин prettier-plugin-tailwindcss (0.6.6)
 
-## Customize configuration
+Полный список зависимостей, технологий и плагинов с версиями доступен в файле package.json
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+# Как установить проект
 
-## Project Setup
+Рекомендуем разворачивать проект на VSCode с расширением Volar. Также советуем отключить Vetur, если вы используете его, поскольку это расширение может конфликтовать с TypeScript. Используйте пакетный менеджер npm.
+
+Если вам нужно кастомизировать конфигурацию Vite, следуйте документации
+
+1. Скачайте репозиторий с GitHub
+2. Установите зависимости через команду в терминале
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+3. Чтобы открыть проект в браузере, введите следующую команду
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+4. И перейдите на указанный localhost. Вам должен открыться проект.
