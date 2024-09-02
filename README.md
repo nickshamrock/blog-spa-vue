@@ -38,3 +38,5 @@ npm run dev
 ```
 
 4. И перейдите на указанный localhost. Вам должен открыться проект.
+
+5. Ссылка на [документацию](https://docs.google.com/document/d/1dZtePgwQie-kDkMIe12eQc0VHBmKG2U_gRB8KVxg7hk/edit?usp=sharing) с описанием архитектуры
