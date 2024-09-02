@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import ModalWindow from '../ModalWindow.vue'
-import { defineProps } from 'vue'
-import { ref } from 'vue'
+import { ref, computed, defineProps } from 'vue'
 
 //показ модального окна
 const showModal: any = ref(false)
@@ -17,7 +16,24 @@ interface CardProps {
   text: string
 }
 
-defineProps<CardProps>()
+const props = defineProps<CardProps>()
+
+//функция, которая меняет слово "комментарий" в зависимости от количества комментариев
+const commentsText = computed(() => {
+  const num = props.comments
+  const lastDigit = num % 10
+  const lastTwoDigits = num % 100
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+    return `${num} комментариев`
+  }
+  if (lastDigit === 1) {
+    return `${num} комментарий`
+  }
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return `${num} комментария`
+  }
+  return `${num} комментариев`
+})
 </script>
 <template>
   <div class="flex h-auto w-[400px] cursor-pointer flex-col gap-[10px]" @click="showModal = true">
@@ -33,7 +49,7 @@ defineProps<CardProps>()
       <span class="mx-[10px] block text-[10px] font-semibold leading-[10px]">•</span>
       <div class="flex items-center">
         <img src="/svg/messages.svg" class="mr-[5px] block" height="14px" width="14px" />
-        <span>{{ comments }} комментариев</span>
+        <span>{{ commentsText }} </span>
       </div>
     </div>
 
