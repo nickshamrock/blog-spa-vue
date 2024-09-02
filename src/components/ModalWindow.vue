@@ -44,7 +44,7 @@ const clearComment = (event: Event) => {
   showCommentCounter.value = false
 
   const textarea = event.target as HTMLTextAreaElement
-  textarea.classList.remove('textarea-normal')
+
   textarea.classList.remove('textarea-focus')
   textarea.classList.remove('textarea-error')
 }
@@ -52,17 +52,14 @@ const clearComment = (event: Event) => {
 // Расширяем и добавляем стили textarea при фокусе
 const onTextareaFocus = (event: Event) => {
   showCommentCounter.value = true
-
   const textarea = event.target as HTMLTextAreaElement
-  // Всегда добавляем класс фокуса
-  textarea.classList.add('textarea-focus')
+
   // Убираем класс ошибки, если длина комментария меньше 250
   if (commentText.value.length <= maxCommentLength) {
+    textarea.classList.add('textarea-focus')
     textarea.classList.remove('textarea-error')
-    textarea.classList.add('textarea-normal')
-  } else {
+  } else if (commentText.value.length > maxCommentLength) {
     textarea.classList.add('textarea-error')
-    textarea.classList.remove('textarea-normal')
   }
 }
 
@@ -72,7 +69,7 @@ const onTextareaBlur = (event: Event) => {
   // Убираем класс фокуса
   textarea.classList.remove('textarea-focus')
   // Убираем класс ошибки и нормальный класс
-  textarea.classList.remove('textarea-error', 'textarea-normal')
+  textarea.classList.remove('textarea-error')
 }
 
 // Добавляем стили для textare в зависимости от количества введеного текста
@@ -81,10 +78,9 @@ const onTextareaInput = (event: Event) => {
 
   if (commentText.value.length > maxCommentLength) {
     textarea.classList.add('textarea-error')
-    textarea.classList.remove('textarea-normal')
+
     textarea.classList.remove('textarea-focus')
   } else {
-    textarea.classList.add('textarea-normal')
     textarea.classList.add('textarea-focus')
     textarea.classList.remove('textarea-error')
   }
@@ -103,9 +99,10 @@ const sortedComments = computed(() => {
     return parseDate(b.date).getTime() - parseDate(a.date).getTime() // Отсортировать в порядке убывания
   })
 })
-
 //Условие показа для счетчика символов и кнопок удаления/добавления комментария
 const showCommentCounter = ref<boolean>(false)
+
+//функция, которая меняет слово "комментарий" в зависимости от количества комментариев
 </script>
 
 <template>
@@ -167,7 +164,7 @@ const showCommentCounter = ref<boolean>(false)
         <!-- Секция комментариев -->
         <div class="flex flex-col gap-[10px]">
           <div class="flex items-center gap-[6px] text-base leading-4">
-            <h4 class="font-semibold tracking-tighter text-[#181C32]">Комментариев</h4>
+            <p class="font-semibold tracking-tighter text-[#181C32]">Комментариев</p>
             <span class="font-medium tracking-tighter text-[#7E8299]">{{
               addedComments.length
             }}</span>
@@ -273,21 +270,13 @@ const showCommentCounter = ref<boolean>(false)
 .modal-leave-to .modal-container
   transform: scale(1.1)
   //Стили для рамки textarea, которые используются в функциях onTextarea*
-.textarea-normal
-  border: 1px solid rgba(62, 151, 255, 1)
-  outline: 2px solid rgba(62, 151, 255, 0.32)
-  height: auto
-
 .textarea-error
-  border: 1px solid rgba(241, 65, 108, 1)
-  outline: 2px solid rgba(241, 65, 108, 0.32)
+  border: 1px solid rgba(241, 65, 108, 1) //красная рамка
+  outline: 2px solid rgba(241, 65, 108, 0.32) //красная рамка
   height: 113px
 
 .textarea-focus
   height: 113px
-  border: 1px solid rgba(62, 151, 255, 1)
-  outline: 2px solid rgba(62, 151, 255, 0.32)
-
-.textarea-blur
-  height: auto
+  border: 1px solid rgba(62, 151, 255, 1) //синяя рамка
+  outline: 2px solid rgba(62, 151, 255, 0.32) //синяя рамка
 </style>
