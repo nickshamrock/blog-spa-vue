@@ -22,7 +22,7 @@ const numberOfComments = computed(() => getNumberSuffix(props.comments))
 </script>
 <template>
   <div
-    class="flex w-auto max-w-[400px] cursor-pointer flex-col gap-[10px] outline outline-2 outline-red-700 max-[980px]:w-[365px] max-[780px]:w-[325px]"
+    class="flex w-auto max-w-[400px] cursor-pointer flex-col gap-[10px] max-[980px]:w-[365px] max-[780px]:w-[325px]"
     @click="showModal = true"
   >
     <img class="h-[250px] w-full rounded-xl object-cover" :src="imageSrc" :alt="title" />

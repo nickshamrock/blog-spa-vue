@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import store from '@/store'
+import AppSearchInput from './AppSearchInput.vue'
+import AppButtonsFilters from './AppButtonsFilters.vue'
 
 const showFilters = ref(false)
 const searchQuery = ref(store.searchQuery)
@@ -15,27 +17,20 @@ const filters = ref<string[]>([
   'Искусство'
 ])
 const selectedFilters = ref(store.selectedFilters)
-const currentIcons = ref<Record<string, string>>({})
-
-filters.value.forEach((filter) => {
-  currentIcons.value[filter] = '/svg/plus.svg'
-})
-
-const isActiveFilter = (filter: string): boolean => {
-  return selectedFilters.value.includes(filter)
-}
 
 const toggleFilterSelection = (filter: string): void => {
   const index = selectedFilters.value.indexOf(filter)
-
   if (index > -1) {
     selectedFilters.value.splice(index, 1)
   } else {
     selectedFilters.value.push(filter)
   }
-
-  updateIcon(filter)
   store.selectedFilters = selectedFilters.value
+}
+
+const updateSearchQuery = (newSearchQuery: string): void => {
+  searchQuery.value = newSearchQuery
+  store.searchQuery = newSearchQuery
 }
 
 const clearFilters = (): void => {
@@ -43,25 +38,10 @@ const clearFilters = (): void => {
   store.selectedFilters = []
   searchQuery.value = ''
   store.searchQuery = ''
-  resetAllIcons()
 }
 
 const toggleFilter = (): void => {
   showFilters.value = !showFilters.value
-}
-
-const clearSearch = (): void => {
-  searchQuery.value = ''
-}
-
-const updateIcon = (filter: string): void => {
-  currentIcons.value[filter] = isActiveFilter(filter) ? '/svg/cross.svg' : '/svg/plus.svg'
-}
-
-const resetAllIcons = (): void => {
-  filters.value.forEach((filter) => {
-    currentIcons.value[filter] = '/svg/plus.svg'
-  })
 }
 
 watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => {
@@ -74,24 +54,14 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
   <div class="w-full bg-white">
     <div class="app-filter-wrapper py-5" v-auto-animate>
       <div class="flex items-center gap-10">
-        <h1 class="app-filter-title text-[32px] font-bold leading-8 text-[#181C32]">Блог</h1>
-        <div class="app-filter-input-container relative flex items-center">
-          <img src="/svg/search-icon.svg" class="absolute left-3" width="14px" height="14px" />
-          <input
-            v-model="searchQuery"
-            class="input-filter h-[40px] w-full rounded-md bg-[#F9F9F9] px-[34px] py-[13px] text-sm"
-            type="text"
-            placeholder="Поиск"
-            name="search-input"
-          />
-          <span
-            v-if="searchQuery"
-            @click="clearSearch"
-            class="absolute right-[10px] cursor-pointer text-[10px] text-gray-500"
-          >
-            &#10005;
-          </span>
-        </div>
+        <h1
+          class="text-[32px] font-bold leading-8 text-[#181C32] max-[431px]:text-2xl max-[431px]:leading-6"
+        >
+          Блог
+        </h1>
+
+        <AppSearchInput :searchQuery="searchQuery" @update:searchQuery="updateSearchQuery" />
+
         <div class="ml-auto flex">
           <button
             v-if="selectedFilters.length > 0"
@@ -115,60 +85,18 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
         </div>
       </div>
 
-      <div v-if="showFilters" class="filter-buttons flex flex-wrap gap-2">
-        <button
-          v-for="filter in filters"
-          :key="filter"
-          @click="toggleFilterSelection(filter)"
-          :class="{ active: isActiveFilter(filter) }"
-          @mouseenter="updateIcon(filter)"
-          @mouseleave="updateIcon(filter)"
-        >
-          {{ filter }}
-          <img :src="currentIcons[filter]" />
-        </button>
+      <div v-if="showFilters">
+        <AppButtonsFilters
+          :filters="filters"
+          :selectedFilters="selectedFilters"
+          @update:selectedFilters="toggleFilterSelection"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="sass">
-.input-filter
-  &:hover
-    border: 1px solid #3E97FF
-  &:focus
-    border: 1px solid rgba(62, 151, 255, 1)
-    outline: 2px solid rgba(62, 151, 255, 0.32)
-  &::placeholder
-    font-size: 13px
-    font-weight: 500
-    color: #D8D8E5
-
-.filter-buttons
-  padding-top: 20px
-
-  @media (max-width: 425px)
-    padding-top: 62px
-
-  button
-    display: flex
-    align-items: center
-    gap: 10px
-    color: #2884EF
-    background-color: #EEF6FF
-    border-radius: 20px
-    padding: 8px 14px
-    font-size: 16px
-    line-height: 16px
-    font-weight: 500
-    transition: background-color 0.5s ease
-
-    &:hover
-      background-color: #3E97FF33
-
-    &.active
-      background-color:  #3E97FF
-      color: #FFFFFF
 
 // adaptive classes
 .app-filter-wrapper
@@ -184,12 +112,6 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
     padding-top: 12px
     position: relative
     min-height: 98px
-
-.app-filter-title
-  font-size: 32px
-  @media (max-width: 431px)
-    font-size: 24px
-    line-height: 24px
 
 .app-filter-input-container
   width: 400px
