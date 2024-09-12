@@ -181,14 +181,7 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
   @media (max-width: 800px) and (min-width: 425px)
     padding-left: 30px
     padding-right: 30px
-  @media (max-width: 425px) and (min-width: 375px)
-    padding-left: 10px
-    padding-right: 10px
-    padding-top: 12px
-    position: relative
-    min-height: 98px
-
-  @media (max-width: 375px)
+  @media (max-width: 425px)
     padding-left: 10px
     padding-right: 10px
     padding-top: 12px
@@ -197,17 +190,12 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
 
 .app-filter-title
   font-size: 32px
-  @media (max-width: 431px) and (min-width: 375px)
+  @media (max-width: 431px)
     font-size: 24px
     line-height: 24px
-  @media (max-width: 375px)
-    font-size: 16px
-    line-height: 16px
 
 .app-filter-input-container
   width: 400px
-  @media (max-width: 800px)
-    width: 400px
   @media (max-width: 425px) and (min-width: 375px)
     position: absolute
     top: 46px
