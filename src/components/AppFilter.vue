@@ -115,7 +115,7 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
         </div>
       </div>
 
-      <div v-if="showFilters" class="filter-buttons">
+      <div v-if="showFilters" class="filter-buttons flex flex-wrap gap-2">
         <button
           v-for="filter in filters"
           :key="filter"
@@ -146,9 +146,6 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
 
 .filter-buttons
   padding-top: 20px
-  display: flex
-  gap: 8px
-  flex-wrap: wrap
 
   @media (max-width: 425px)
     padding-top: 62px
