@@ -29,7 +29,7 @@ const showNoResults = computed(() => filteredPosts.value.length === 0)
 
 <template>
   <section
-    class="bg-[#F1F1F2] px-[50px] pb-[30px] pt-5 max-[800px]:px-[10px] max-[800px]:pt-[10px]"
+    class="w-full bg-[#F1F1F2] px-[50px] pb-[30px] pt-5 max-[980px]:px-[10px] max-[980px]:pt-[10px]"
   >
     <div v-if="showNoResults">
       <SearchFail />
@@ -37,7 +37,7 @@ const showNoResults = computed(() => filteredPosts.value.length === 0)
 
     <div
       v-else
-      class="flex flex-wrap gap-5 rounded-xl bg-white p-[30px] outline outline-2 outline-emerald-700 max-[800px]:p-[15px]"
+      class="flex flex-wrap justify-evenly gap-5 rounded-xl bg-white p-[30px] max-[980px]:p-[5px] min-[1820px]:justify-normal"
       v-auto-animate
     >
       <BlogPost
@@ -51,7 +51,6 @@ const showNoResults = computed(() => filteredPosts.value.length === 0)
         :description="post.description"
         :tags="post.tags"
         :text="post.text"
-        class="w-[calc(33%-10px)] max-[800px]:w-full"
       />
     </div>
   </section>

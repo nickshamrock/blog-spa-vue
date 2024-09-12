@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ModalWindow from '../ModalWindow.vue'
 import { ref, computed, defineProps } from 'vue'
+import { getNumberSuffix } from '@/utils/GetNumberSuffix'
 
 const showModal: any = ref(false)
 
@@ -17,27 +18,14 @@ interface CardProps {
 
 const props = defineProps<CardProps>()
 
-//функция, которая меняет слово "комментарий" в зависимости от количества комментариев
-const commentsText = computed(() => {
-  const num = props.comments
-  const lastDigit = num % 10
-  const lastTwoDigits = num % 100
-  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
-    return `${num} комментариев`
-  }
-  if (lastDigit === 1) {
-    return `${num} комментарий`
-  }
-  if (lastDigit >= 2 && lastDigit <= 4) {
-    return `${num} комментария`
-  }
-  return `${num} комментариев`
-})
+const numberOfComments = computed(() => getNumberSuffix(props.comments))
 </script>
 <template>
-  <div class="flex h-auto w-[400px] cursor-pointer flex-col gap-[10px]" @click="showModal = true">
-    <img class="h-[250px] w-[450px] rounded-xl object-cover" :src="imageSrc" :alt="title" />
-
+  <div
+    class="flex w-auto max-w-[400px] cursor-pointer flex-col gap-[10px] outline outline-2 outline-red-700 max-[980px]:w-[365px] max-[780px]:w-[325px]"
+    @click="showModal = true"
+  >
+    <img class="h-[250px] w-full rounded-xl object-cover" :src="imageSrc" :alt="title" />
     <div class="flex flex-wrap items-center text-sm leading-[14px] text-[#7E8299]">
       <span>{{ date }}</span>
       <span class="mx-[10px] block text-[10px] font-semibold leading-[10px]">•</span>
@@ -48,7 +36,7 @@ const commentsText = computed(() => {
       <span class="mx-[10px] block text-[10px] font-semibold leading-[10px]">•</span>
       <div class="flex items-center">
         <img src="/svg/messages.svg" class="mr-[5px] block" height="14px" width="14px" />
-        <span>{{ commentsText }} </span>
+        <span>{{ numberOfComments }} </span>
       </div>
     </div>
 
