@@ -40,13 +40,12 @@ const addComment = () => {
 }
 // Функция для очистки комментария
 const clearComment = (event: Event) => {
-  commentText.value = ''
-  showCommentCounter.value = false
-
   const textarea = event.target as HTMLTextAreaElement
-
   textarea.classList.remove('textarea-focus')
   textarea.classList.remove('textarea-error')
+
+  commentText.value = ''
+  showCommentCounter.value = false
 }
 
 // Расширяем и добавляем стили textarea при фокусе

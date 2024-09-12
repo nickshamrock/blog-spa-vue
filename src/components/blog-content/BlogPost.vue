@@ -2,7 +2,6 @@
 import ModalWindow from '../ModalWindow.vue'
 import { ref, computed, defineProps } from 'vue'
 
-//показ модального окна
 const showModal: any = ref(false)
 
 interface CardProps {

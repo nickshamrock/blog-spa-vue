@@ -97,20 +97,6 @@ const resetAllIcons = (): void => {
 }
 
 const inputField = ref<HTMLInputElement | null>(null)
-
-//Функция добавления рамки на поле input при наведении
-const addOutline = () => {
-  if (inputField.value) {
-    inputField.value.style.border = '1px solid #3E97FF'
-  }
-}
-
-// Функция для удаления рамки на поле input
-const removeOutline = () => {
-  if (inputField.value) {
-    inputField.value.style.border = 'none'
-  }
-}
 </script>
 
 <template>
@@ -131,8 +117,6 @@ const removeOutline = () => {
             type="text"
             placeholder="Поиск"
             name="input"
-            @mouseenter="addOutline"
-            @mouseleave="removeOutline"
             ref="inputField"
           />
           <span
@@ -183,19 +167,11 @@ const removeOutline = () => {
 
 <style scoped lang="sass">
 
-// @font-face
-//   font-family: 'Gilroy'
-//   font-style: normal
-//   font-weight: 700
-//   src:
-//     local:('Gilroy'),
-//     url:('/fonts/Gilroy-Bold.woff2') format('woff2')
-
-
 .input-filter
+  &:hover
+    border: 1px solid #3E97FF
   &:focus
-    outline: 2px solid rgba(62, 151, 255, 0.32)
-  &:active
+    border: 1px solid rgba(62, 151, 255, 1)
     outline: 2px solid rgba(62, 151, 255, 0.32)
   &::placeholder
     font-size: 13px
