@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ModalWindow from '../ModalWindow.vue'
-import { ref, computed, defineProps } from 'vue'
+import ModalWindow from '@/components/blog-content/ModalWindow.vue'
+import { ref, computed } from 'vue'
 import { getNumberSuffix } from '@/utils/GetNumberSuffix'
 
 const showModal: any = ref(false)

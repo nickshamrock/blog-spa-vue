@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { defineProps, defineEmits } from 'vue'
 import IconButton from '../ui-components/IconButton.vue'
 
 const emit = defineEmits(['update:selectedFilters'])
