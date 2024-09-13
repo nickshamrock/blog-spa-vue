@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ref, defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits } from 'vue'
+import IconButton from '../ui-components/IconButton.vue'
 
 const emit = defineEmits(['update:selectedFilters'])
 const props = defineProps<{
@@ -7,22 +8,12 @@ const props = defineProps<{
   selectedFilters: string[]
 }>()
 
-const icons = ref<Record<string, string>>({})
-props.filters.forEach((filter) => {
-  icons.value[filter] = '/svg/plus.svg'
-})
-
 const toggleFilter = (filter: string) => {
   emit('update:selectedFilters', filter)
-  updateIcon(filter)
 }
 
 const isActive = (filter: string) => {
   return props.selectedFilters.includes(filter)
-}
-
-const updateIcon = (filter: string) => {
-  icons.value[filter] = isActive(filter) ? '/svg/cross.svg' : '/svg/plus.svg'
 }
 </script>
 
@@ -35,7 +26,8 @@ const updateIcon = (filter: string) => {
       :class="{ active: isActive(filter) }"
     >
       {{ filter }}
-      <img :src="icons[filter]" />
+
+      <IconButton :isActive="isActive(filter)" />
     </button>
   </div>
 </template>
@@ -44,6 +36,8 @@ const updateIcon = (filter: string) => {
 
 .filter-buttons
     padding-top: 20px
+    @media (max-width: 425px)
+      padding-top: 65px
 
 button
     display: flex

@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import store from '@/store'
-import AppSearchInput from './AppSearchInput.vue'
-import AppButtonsFilters from './AppButtonsFilters.vue'
+import AppSearchInput from './filter-components/AppSearchInput.vue'
+import AppButtonsFilters from './filter-components/AppButtonsFilters.vue'
+import AppToggleButtons from './filter-components/AppToggleButtons.vue'
 
 const showFilters = ref(false)
 const searchQuery = ref(store.searchQuery)
@@ -63,25 +64,12 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
         <AppSearchInput :searchQuery="searchQuery" @update:searchQuery="updateSearchQuery" />
 
         <div class="ml-auto flex">
-          <button
-            v-if="selectedFilters.length > 0"
-            @click="clearFilters"
-            class="mr-[10px] text-sm font-medium text-[#2884EF]"
-          >
-            Очистить
-          </button>
-          <button
-            @click="toggleFilter"
-            class="flex items-center gap-1 text-sm font-medium text-[#A1A5B7]"
-          >
-            {{ showFilters && selectedFilters.length === 0 ? 'Скрыть фильтр' : 'Фильтр' }}
-            <img
-              :class="{ 'rotate-180': showFilters }"
-              src="/svg/arrow.svg"
-              width="10px"
-              height="6px"
-            />
-          </button>
+          <AppToggleButtons
+            :selectedFilters="selectedFilters"
+            :showFilters="showFilters"
+            @clearFilters="clearFilters"
+            @toggleFilter="toggleFilter"
+          />
         </div>
       </div>
 
@@ -96,9 +84,8 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
   </div>
 </template>
 
-<style scoped lang="sass">
+<style lang="sass" scoped>
 
-// adaptive classes
 .app-filter-wrapper
   padding-left: 95px
   padding-right: 95px
@@ -112,15 +99,4 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
     padding-top: 12px
     position: relative
     min-height: 98px
-
-.app-filter-input-container
-  width: 400px
-  @media (max-width: 425px) and (min-width: 375px)
-    position: absolute
-    top: 46px
-    width: 355px
-  @media (max-width: 375px)
-    position: absolute
-    top: 46px
-    width: auto
 </style>

@@ -51,4 +51,15 @@ const clearSearch = () => {
     font-size: 13px
     font-weight: 500
     color: #d8d8e5
+
+.app-filter-input-container
+  width: 400px
+  @media (max-width: 425px) and (min-width: 375px)
+    position: absolute
+    top: 46px
+    width: 355px
+  @media (max-width: 375px)
+    position: absolute
+    top: 46px
+    width: auto
 </style>

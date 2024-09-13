@@ -13,8 +13,8 @@ import BurgerMenu from './ui-components/BurgerMenu.vue'
       <img
         src="/logo/loremipsom-logo.png"
         class="block"
-        width="150px"
-        height="27px"
+        width="150"
+        height="27"
         alt="Logo Loremipsom"
       />
       <div
