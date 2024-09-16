@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, defineEmits, defineProps } from 'vue'
+import { ref } from 'vue'
 
 const emit = defineEmits(['update:searchQuery'])
 const props = defineProps<{ searchQuery: string }>()

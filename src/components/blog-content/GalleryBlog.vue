@@ -37,7 +37,7 @@ const showNoResults = computed(() => filteredPosts.value.length === 0)
 
     <div
       v-else
-      class="flex flex-wrap gap-5 rounded-xl bg-white p-[30px] max-[980px]:p-[5px]"
+      class="flex flex-wrap justify-evenly gap-5 rounded-xl bg-white p-[30px] max-[980px]:px-[5px]"
       v-auto-animate
     >
       <BlogPost

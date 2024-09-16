@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+import { computed, ref } from 'vue'
 import CommentSection from './modal-content/CommentSection.vue'
+import { getNumberSuffix } from '@/utils/GetNumberSuffix'
 
 interface ModalWindowProps {
   show: boolean
@@ -13,17 +15,21 @@ interface ModalWindowProps {
   text: string
 }
 
-defineProps<ModalWindowProps>()
-</script>
+const props = defineProps<ModalWindowProps>()
 
+const commentsCount = ref(props.comments)
+
+const updateCommentsCount = (newCount: number) => {
+  commentsCount.value = newCount
+}
+
+const formattedCommentsCount = computed(() => getNumberSuffix(commentsCount.value))
+</script>
 <template>
   <Transition name="modal">
-    <div
-      v-show="show"
-      class="fixed left-0 top-0 z-50 flex h-full w-full overflow-hidden overflow-y-auto bg-black/55 transition-opacity duration-500 ease-out"
-    >
+    <div v-show="show" class="fixed inset-0 z-50 flex h-full w-full overflow-y-auto bg-black/55">
       <div
-        class="modal-container m-auto h-auto w-[630px] rounded-xl bg-white p-[15px] transition-all duration-500 ease-in max-[800px]:w-2/3 max-[430px]:w-[350px]"
+        class="modal-container m-auto w-[630px] rounded-xl bg-white p-[15px] transition-all duration-500 ease-in max-[800px]:w-2/3 max-[430px]:w-[350px]"
       >
         <div class="mb-[10px] flex items-center justify-between">
           <h3
@@ -31,7 +37,7 @@ defineProps<ModalWindowProps>()
           >
             {{ title }}
           </h3>
-          <button @click="$emit('close')" class="h-[20px] w-[20px]">&#10005;</button>
+          <button @click="$emit('close')" class="h-[20px] w-[20px] cursor-pointer">&#10005;</button>
         </div>
 
         <div
@@ -46,7 +52,7 @@ defineProps<ModalWindowProps>()
           <span class="mx-[10px] block text-[10px] font-semibold leading-[10px]">•</span>
           <div class="flex items-center">
             <img src="/svg/messages.svg" class="mr-[5px] block" height="14px" width="14px" />
-            <span>{{ comments }} комментариев</span>
+            <span>{{ formattedCommentsCount }} </span>
           </div>
         </div>
 
@@ -72,16 +78,13 @@ defineProps<ModalWindowProps>()
             {{ tag }}
           </span>
         </div>
-        <!-- Секция комментариев -->
-        <CommentSection />
-        <!-- Кончается секция комментариев -->
+        <CommentSection @updateCommentsCount="updateCommentsCount" />
       </div>
     </div>
   </Transition>
 </template>
 
 <style lang="sass" scoped>
-  //Анимация модального окна
 .modal-enter-from
   opacity: 0
 
@@ -91,14 +94,4 @@ defineProps<ModalWindowProps>()
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container
   transform: scale(1.1)
-  //Стили для рамки textarea, которые используются в функциях onTextarea*
-.textarea-error
-  border: 1px solid rgba(241, 65, 108, 1) //красная рамка
-  outline: 2px solid rgba(241, 65, 108, 0.32) //красная рамка
-  height: 113px
-
-.textarea-focus
-  height: 113px
-  border: 1px solid rgba(62, 151, 255, 1) //синяя рамка
-  outline: 2px solid rgba(62, 151, 255, 0.32) //синяя рамка
 </style>
