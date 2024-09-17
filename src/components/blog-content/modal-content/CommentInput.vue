@@ -43,10 +43,12 @@ const showPublishButton = computed(
     <textarea
       v-model="commentText"
       @focus="showCommentCounter = true"
-      class="relative h-[52px] w-full resize-none rounded-lg border py-[10px] pl-[15px] pr-[30px] focus:outline"
+      class="relative w-full resize-none rounded-lg border py-[10px] pl-[15px] pr-[30px] focus:outline"
       :class="textareaClass"
       placeholder="Введите комментарий"
       maxlength="550"
+      rows="1"
+      name="comment-textarea"
     ></textarea>
 
     <button

@@ -56,7 +56,7 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
     <div class="app-filter-wrapper py-5" v-auto-animate>
       <div class="flex items-center gap-10">
         <h1
-          class="text-[32px] font-bold leading-8 text-[#181C32] max-[431px]:text-2xl max-[431px]:leading-6"
+          class="text-[32px] font-bold leading-8 text-[#181C32] max-[435px]:text-2xl max-[435px]:leading-6"
         >
           Блог
         </h1>
@@ -93,7 +93,7 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
   @media (max-width: 800px) and (min-width: 425px)
     padding-left: 30px
     padding-right: 30px
-  @media (max-width: 425px)
+  @media (max-width: 435px)
     padding-left: 10px
     padding-right: 10px
     padding-top: 12px

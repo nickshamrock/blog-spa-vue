@@ -35,7 +35,7 @@ const isActive = (filter: string) => {
 
 .filter-buttons
     padding-top: 20px
-    @media (max-width: 425px)
+    @media (max-width: 435px)
       padding-top: 65px
 
 button

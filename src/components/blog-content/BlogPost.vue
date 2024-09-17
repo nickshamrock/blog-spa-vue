@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ModalWindow from '@/components/blog-content/ModalWindow.vue'
+import PostInfo from './modal-content/PostInfo.vue'
 import { ref, computed } from 'vue'
 import { getNumberSuffix } from '@/utils/GetNumberSuffix'
 
@@ -26,19 +27,8 @@ const numberOfComments = computed(() => getNumberSuffix(props.comments))
     @click="showModal = true"
   >
     <img class="h-[250px] w-full rounded-xl object-cover" :src="imageSrc" :alt="title" />
-    <div class="flex flex-wrap items-center text-sm leading-[14px] text-[#7E8299]">
-      <span>{{ date }}</span>
-      <span class="mx-[10px] block text-[10px] font-semibold leading-[10px]">•</span>
-      <div class="flex items-center">
-        <img src="/svg/time.svg" class="mr-[7px] block" height="14px" width="14px" />
-        <span>{{ readTime }}</span>
-      </div>
-      <span class="mx-[10px] block text-[10px] font-semibold leading-[10px]">•</span>
-      <div class="flex items-center">
-        <img src="/svg/messages.svg" class="mr-[5px] block" height="14px" width="14px" />
-        <span>{{ numberOfComments }} </span>
-      </div>
-    </div>
+
+    <PostInfo :readTime="props.readTime" :date="props.date" :comments="numberOfComments" />
 
     <h2 class="text-[22px] font-semibold leading-[22px] tracking-tight text-black">
       {{ title }}
