@@ -38,7 +38,6 @@ const clearSearch = () => {
 </template>
 
 <style lang="sass" scoped>
-
 .input-filter
   &:hover
     border: 1px solid #3e97ff

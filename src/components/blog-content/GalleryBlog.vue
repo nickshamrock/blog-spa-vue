@@ -4,22 +4,14 @@ import BlogPost from './BlogPost.vue'
 import SearchFail from './SearchFail.vue'
 import store from '@/store'
 import { parseDate } from '@/utils/FilterPostsByDate'
-
-const matchesFilters = (post: any): boolean => {
-  return (
-    store.selectedFilters.length === 0 ||
-    post.tags.some((tag: string) => store.selectedFilters.includes(tag))
-  )
-}
-
-const matchesSearchQuery = (post: any): boolean => {
-  const query = store.searchQuery.toLowerCase()
-  return post.description.toLowerCase().includes(query) || post.text.toLowerCase().includes(query)
-}
+import { matchesFilters, matchesSearchQuery } from '@/utils/FilterPostsByAppFilter'
 
 const filteredPosts = computed(() => {
   return store.posts
-    .filter((post) => matchesFilters(post) && matchesSearchQuery(post))
+    .filter(
+      (post) =>
+        matchesFilters(post, store.selectedFilters) && matchesSearchQuery(post, store.searchQuery)
+    )
     .sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime())
     .slice(0, 6)
 })

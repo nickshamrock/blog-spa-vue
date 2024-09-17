@@ -32,9 +32,7 @@ const formattedCommentsCount = computed(() => getNumberSuffix(commentsCount.valu
 <template>
   <Transition name="modal">
     <div v-show="show" class="fixed inset-0 z-50 flex h-full w-full overflow-y-auto bg-black/55">
-      <div
-        class="modal-container modal-mask m-auto flex max-w-[630px] flex-col gap-[15px] rounded-xl bg-white p-[15px] max-[800px]:w-2/3 max-[430px]:w-[350px]"
-      >
+      <div class="modal-container modal-mask max-[800px]:w-2/3 max-[430px]:w-[350px]">
         <div class="relative flex flex-col gap-[10px]">
           <button
             @click="$emit('close')"
@@ -61,8 +59,16 @@ const formattedCommentsCount = computed(() => getNumberSuffix(commentsCount.valu
 <style lang="sass" scoped>
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container
-  transform: scale(1.1)
+  transform: scale(1.2)
 
 .modal-mask
-  transition: all 0.5s ease-in
+  display: flex
+  flex-direction: column
+  gap: 15px
+  max-width: 630px
+  margin: auto
+  padding: 15px
+  background-color: white
+  border-radius: 0.75rem
+  transition: all 0.7s ease
 </style>

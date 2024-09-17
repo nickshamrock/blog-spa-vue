@@ -28,7 +28,7 @@ const numberOfComments = computed(() => getNumberSuffix(props.comments))
   >
     <img class="h-[250px] w-full rounded-xl object-cover" :src="imageSrc" :alt="title" />
 
-    <PostInfo :readTime="props.readTime" :date="props.date" :comments="numberOfComments" />
+    <PostInfo :readTime="readTime" :date="date" :comments="numberOfComments" />
 
     <h2 class="text-[22px] font-semibold leading-[22px] tracking-tight text-black">
       {{ title }}

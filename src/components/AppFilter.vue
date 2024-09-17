@@ -7,16 +7,6 @@ import AppToggleButtons from './filter-components/AppToggleButtons.vue'
 
 const showFilters = ref(false)
 const searchQuery = ref(store.searchQuery)
-const filters = ref<string[]>([
-  'Город',
-  'Природа',
-  'Люди',
-  'Животные',
-  'Еда',
-  'Напитки',
-  'Архитектура',
-  'Искусство'
-])
 const selectedFilters = ref(store.selectedFilters)
 
 const toggleFilterSelection = (filter: string): void => {
@@ -75,7 +65,6 @@ watch([searchQuery, selectedFilters], ([newSearchQuery, newSelectedFilters]) => 
 
       <div v-if="showFilters">
         <AppButtonsFilters
-          :filters="filters"
           :selectedFilters="selectedFilters"
           @update:selectedFilters="toggleFilterSelection"
         />

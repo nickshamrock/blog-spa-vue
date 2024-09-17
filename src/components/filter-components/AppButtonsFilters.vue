@@ -1,9 +1,20 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import IconButton from '../ui-components/IconButton.vue'
+
+const filters = ref<string[]>([
+  'Город',
+  'Природа',
+  'Люди',
+  'Животные',
+  'Еда',
+  'Напитки',
+  'Архитектура',
+  'Искусство'
+])
 
 const emit = defineEmits(['update:selectedFilters'])
 const props = defineProps<{
-  filters: string[]
   selectedFilters: string[]
 }>()
 
