@@ -31,7 +31,10 @@ const formattedCommentsCount = computed(() => getNumberSuffix(commentsCount.valu
 </script>
 <template>
   <Transition name="modal">
-    <div v-show="show" class="fixed inset-0 z-50 flex h-full w-full overflow-y-auto bg-black/55">
+    <div
+      v-show="show"
+      class="fixed inset-0 z-50 flex h-full w-full overflow-y-auto bg-black/55 py-8"
+    >
       <div class="modal-container modal-mask max-[800px]:w-2/3 max-[430px]:w-[350px]">
         <div class="relative flex flex-col gap-[10px]">
           <button

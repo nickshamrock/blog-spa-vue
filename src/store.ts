@@ -25,7 +25,7 @@ const store = reactive({
     },
 
     {
-      imageSrc: '/images/another-image-2.png',
+      imageSrc: '/images/image-2.png',
       date: '6 Апр',
       readTime: '3 мин',
       comments: 5,

@@ -8,6 +8,13 @@ interface Comment {
 const props = defineProps<{
   comments: Comment[]
 }>()
+
+const getImagePath = (author: string): string => {
+  if (author === 'Мира Гусева') {
+    return '/test/test-comment-author.png'
+  }
+  return '/test/anonim-user.png'
+}
 </script>
 
 <template>
@@ -18,7 +25,7 @@ const props = defineProps<{
       class="mb-[10px] flex items-start justify-start"
     >
       <img
-        src="/test/test-comment-author.png"
+        :src="getImagePath(comment.author)"
         class="mr-3 block"
         width="38"
         height="38"

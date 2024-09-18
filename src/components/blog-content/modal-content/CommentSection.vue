@@ -13,7 +13,7 @@ const addedComments = ref([
 ])
 
 const addComment = (newComment: { author: string; text: string; date: string }) => {
-  addedComments.value.push(newComment)
+  addedComments.value.unshift(newComment)
 }
 
 const sortedComments = computed(() => sortComments(addedComments.value))
