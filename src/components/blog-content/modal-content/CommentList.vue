@@ -11,9 +11,9 @@ const props = defineProps<{
 
 const getImagePath = (author: string): string => {
   if (author === 'Мира Гусева') {
-    return '/test/test-comment-author.png'
+    return './test/test-comment-author.png'
   }
-  return '/test/anonim-user.png'
+  return './test/anonim-user.png'
 }
 </script>
 

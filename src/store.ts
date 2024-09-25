@@ -14,7 +14,7 @@ interface Post {
 const store = reactive({
   posts: [
     {
-      imageSrc: '/images/image-1.png',
+      imageSrc: './images/image-1.png',
       date: '9 Апр',
       readTime: '2 мин',
       comments: 1,
@@ -25,7 +25,7 @@ const store = reactive({
     },
 
     {
-      imageSrc: '/images/image-2.png',
+      imageSrc: './images/image-2.png',
       date: '6 Апр',
       readTime: '3 мин',
       comments: 5,
@@ -36,7 +36,7 @@ const store = reactive({
     },
 
     {
-      imageSrc: '/images/image-3.png',
+      imageSrc: './images/image-3.png',
       date: '5 Апр',
       readTime: '3 мин',
       comments: 10,
@@ -47,7 +47,7 @@ const store = reactive({
     },
 
     {
-      imageSrc: '/images/image-4.png',
+      imageSrc: './images/image-4.png',
       date: '4 Апр',
       readTime: '15 мин',
       comments: 6,
@@ -59,7 +59,7 @@ const store = reactive({
     },
 
     {
-      imageSrc: '/images/image-5.png',
+      imageSrc: './images/image-5.png',
       date: '3 Апр',
       readTime: '2 мин',
       comments: 2,
@@ -70,7 +70,7 @@ const store = reactive({
     },
 
     {
-      imageSrc: '/images/image-6.png',
+      imageSrc: './images/image-6.png',
       date: '1 Апр',
       readTime: '4 мин',
       comments: 0,
@@ -82,7 +82,7 @@ const store = reactive({
     },
 
     {
-      imageSrc: '/images/image-7.png',
+      imageSrc: './images/image-7.png',
       date: '5 Апр',
       readTime: '3 мин',
       comments: 10,
@@ -93,7 +93,7 @@ const store = reactive({
     },
 
     {
-      imageSrc: '/images/image-8.png',
+      imageSrc: './images/image-8.png',
       date: '4 Апр',
       readTime: '15 мин',
       comments: 6,
@@ -104,7 +104,7 @@ const store = reactive({
     },
 
     {
-      imageSrc: '/images/image-9.png',
+      imageSrc: './images/image-9.png',
       date: '3 Апр',
       readTime: '2 мин',
       comments: 2,
@@ -116,7 +116,7 @@ const store = reactive({
     },
 
     {
-      imageSrc: '/images/image-10.png',
+      imageSrc: './images/image-10.png',
       date: '1 Апр',
       readTime: '4 мин',
       comments: 0,
